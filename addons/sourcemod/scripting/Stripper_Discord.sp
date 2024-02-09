@@ -5,9 +5,6 @@
 #include <discordWebhookAPI>
 #include <Stripper>
 
-#define WEBHOOK_URL_MAX_SIZE			1000
-#define WEBHOOK_THREAD_NAME_MAX_SIZE	100
-
 ConVar g_cvWebhook, g_cvWebhookRetry, g_cvChannelType;
 ConVar g_cvThreadName, g_cvThreadID;
 
@@ -18,7 +15,7 @@ public Plugin myinfo =
 	name = "Stripper Discord",
 	author = ".Rushaway",
 	description = "Stripper API for Discord",
-	version = "1.1",
+	version = "1.1.1",
 	url = ""
 }
 
@@ -50,7 +47,7 @@ public void Stripper_OnErrorLogged(char[] sBuffer, int maxlen)
 		return;
 	}
 
-	char sMessage[1999];
+	char sMessage[WEBHOOK_MSG_MAX_SIZE];
 	char sTime[64];
 	int iTime = GetTime();
 	FormatTime(sTime, sizeof(sTime), "%m/%d/%Y @ %H:%M:%S", iTime);
@@ -63,7 +60,7 @@ public void Stripper_OnErrorLogged(char[] sBuffer, int maxlen)
 	SendWebHook(sMessage, sWebhookURL);
 }
 
-stock void SendWebHook(char sMessage[1999], char sWebhookURL[WEBHOOK_URL_MAX_SIZE])
+stock void SendWebHook(char sMessage[WEBHOOK_MSG_MAX_SIZE], char sWebhookURL[WEBHOOK_URL_MAX_SIZE])
 {
 	Webhook webhook = new Webhook(sMessage);
 
@@ -112,7 +109,7 @@ public void OnWebHookExecuted(HTTPResponse response, DataPack pack)
 
 	bool IsThreadReply = pack.ReadCell();
 
-	char sMessage[1999], sWebhookURL[WEBHOOK_URL_MAX_SIZE];
+	char sMessage[WEBHOOK_MSG_MAX_SIZE], sWebhookURL[WEBHOOK_URL_MAX_SIZE];
 	pack.ReadString(sMessage, sizeof(sMessage));
 	pack.ReadString(sWebhookURL, sizeof(sWebhookURL));
 
