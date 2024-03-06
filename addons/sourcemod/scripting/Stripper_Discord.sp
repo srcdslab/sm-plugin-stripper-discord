@@ -8,14 +8,12 @@
 ConVar g_cvWebhook, g_cvWebhookRetry, g_cvChannelType;
 ConVar g_cvThreadName, g_cvThreadID;
 
-char g_sMap[PLATFORM_MAX_PATH];
-
 public Plugin myinfo = 
 {
 	name = "Stripper Discord",
 	author = ".Rushaway",
 	description = "Stripper API for Discord",
-	version = "1.1.1",
+	version = "1.1.2",
 	url = ""
 }
 
@@ -30,11 +28,6 @@ public void OnPluginStart()
 	g_cvThreadID = CreateConVar("sm_stripper_threadid", "0", "If thread_id is provided, the message will send in that thread.", FCVAR_PROTECTED);
 
 	AutoExecConfig(true);
-}
-
-public void OnMapInit(const char[] mapName)
-{
-	FormatEx(g_sMap, sizeof(g_sMap), mapName);
 }
 
 public void Stripper_OnErrorLogged(char[] sBuffer, int maxlen)
@@ -52,7 +45,7 @@ public void Stripper_OnErrorLogged(char[] sBuffer, int maxlen)
 	int iTime = GetTime();
 	FormatTime(sTime, sizeof(sTime), "%m/%d/%Y @ %H:%M:%S", iTime);
 
-	Format(sMessage, sizeof(sMessage), ":eyes: Error was detected on %s @ %s```%s```", g_sMap, sTime, sBuffer);
+	Format(sMessage, sizeof(sMessage), ":eyes: Error was detected @ %s```%s```", sTime, sBuffer);
 
 	if(StrContains(sMessage, "\"") != -1)
 		ReplaceString(sMessage, sizeof(sMessage), "\"", "");
