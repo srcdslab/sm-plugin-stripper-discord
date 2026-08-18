@@ -17,17 +17,17 @@ This repository contains a SourcePawn plugin for SourceMod that integrates Strip
   - [DiscordWebhookAPI](https://github.com/srcdslab/sm-plugin-DiscordWebhookAPI) - Handles Discord webhook communication
 
 ## Build System & Tools
-- **Primary Build Tool**: SourceKnight (configured via `sourceknight.yaml`)
-- **CI/CD**: GitHub Actions using `maxime1907/action-sourceknight@v1`
-- **Compiler**: SourcePawn compiler (spcomp) via SourceKnight
-- **Package Output**: `.sourceknight/package/` directory
+- **Primary Build Tool**: Native GitHub Actions (`.github/workflows/ci.yml`)
+- **CI/CD**: GitHub Actions using `rumblefrog/setup-sp@v1.3.1` to install the SourcePawn compiler
+- **Compiler**: SourcePawn compiler (spcomp), SourceMod 1.12.x
+- **Package Output**: `/tmp/package/` directory (uploaded as build artifact)
 - **Compiled Plugin Output**: `addons/sourcemod/plugins/`
 
 ### Build Commands
 ```bash
-# The repository uses SourceKnight for building
-# Local builds would use: sourceknight build
-# CI builds are automated via GitHub Actions
+# CI builds are automated via GitHub Actions (.github/workflows/ci.yml)
+# Locally: clone the git dependencies (stripper, DiscordWebhookAPI) includes into
+# addons/sourcemod/scripting/include, then run spcomp against Stripper_Discord.sp
 ```
 
 ## Project Structure
@@ -123,7 +123,7 @@ delete pack;
 
 ## CI/CD Workflow
 - **Triggers**: Push, Pull Request, Manual dispatch
-- **Build Process**: Automated via SourceKnight action
+- **Build Process**: Automated via native GitHub Actions (setup-sp + spcomp)
 - **Artifacts**: Packaged plugins uploaded as build artifacts
 - **Releases**: Automatic tagging and release creation
 - **Versioning**: Uses semantic versioning with automatic 'latest' tag
@@ -144,7 +144,7 @@ This plugin relies on external APIs and should be tested against:
 
 ## Troubleshooting Common Issues
 1. **Webhook failures**: Check URL validity and Discord channel permissions
-2. **Build failures**: Verify SourceKnight dependencies are available
+2. **Build failures**: Verify git dependencies (stripper, DiscordWebhookAPI) are available
 3. **Plugin loading errors**: Ensure all required dependencies are installed
 4. **Thread creation issues**: Validate Discord forum channel permissions
 
