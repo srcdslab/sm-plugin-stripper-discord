@@ -31,7 +31,7 @@ public void OnPluginStart()
 	AutoExecConfig(true);
 }
 
-public void Stripper_OnErrorLogged(char[] sBuffer, int maxlen)
+public void Stripper_OnErrorLogged(const char[] sBuffer)
 {
 	char sWebhookURL[WEBHOOK_URL_MAX_SIZE];
 	g_cvWebhook.GetString(sWebhookURL, sizeof sWebhookURL);
