@@ -103,7 +103,7 @@ public void OnWebHookExecuted(HTTPResponse response, DataPack pack)
 	{
 		if (retries < g_cvWebhookRetry.IntValue)
 		{
-			PrintToServer("[Stripper-Discord] Failed to send the webhook (HTTP %d). Resending it .. (%d/%d)", view_as<int>(response.Status), retries, g_cvWebhookRetry.IntValue);
+			PrintToServer("[Stripper-Discord] Failed to send the webhook (HTTP %d). Resending it .. (%d/%d)", view_as<int>(response.Status), retries + 1, g_cvWebhookRetry.IntValue);
 			SendWebHook(sMessage, sWebhookURL, retries + 1);
 			return;
 		}
