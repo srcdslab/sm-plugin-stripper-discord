@@ -13,7 +13,7 @@ public Plugin myinfo =
 	name = "Stripper Discord",
 	author = ".Rushaway",
 	description = "Stripper API for Discord",
-	version = "1.2.0",
+	version = "1.2.1",
 	url = ""
 }
 
